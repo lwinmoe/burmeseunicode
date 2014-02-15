@@ -11,4 +11,4 @@
 
 # Unicode Technical Specification (UTN)
 
-To comply with [UTN 11, version 4](http://www.unicode.org/notes/tn11/UTN11_4.pdf), you will need to reorder the diacratics u103A and u1037. The conversion is implemented in convert.pl.
+To comply with [UTN 11, version 4](http://www.unicode.org/notes/tn11/UTN11_4.pdf), you will need to reorder the diacratics u103A and [u1037, u103E, u1082]. The conversion is implemented in convert.pl.
