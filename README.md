@@ -8,3 +8,7 @@
     $foo = uni4touni5($foo);          # from Burmese Unicode 4.1 to 5.1
     $foo = myazedi2uni5($foo);            # from Myazedi to Uni 5.1
     $foo = Encode::encode_utf8($foo);     # back to bytes
+
+# Unicode Technical Specification (UTN)
+
+To comply with [UTN 11, version 4](http://www.unicode.org/notes/tn11/UTN11_4.pdf), you will need to reorder the diacratics u103A and u1037. The conversion is implemented in convert.pl.
