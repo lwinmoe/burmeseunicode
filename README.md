@@ -12,7 +12,7 @@
 # How to run the supplied run.pl file 
 
 - You need to have [Perl](http://www.perl.org/get.html) interpreter installed.
-- Please make changes in run.pl what converter routine you want to use. It's ava2uni5 for now.
+- Please make changes in `run.pl` what converter routine you want to use. It's `ava2uni5` for now.
 - Input files in plain text format have to be put in input/ folder.
 - Then, just run
 
