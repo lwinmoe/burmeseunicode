@@ -499,6 +499,12 @@ sub normalize {
   s/\x{1025}($vowel|$medial|\x{103A})/\x{1009}$1/g;# replace LETTER U with NYA
   s/($vowel)\1/$1/g;		# normalize vowels
   s/($shanTones)+/$1/g;		# normalize Shan tone marks
+
+  ## this is to comply with UTN 11 ver. 4 (http://www.unicode.org/notes/tn11/UTN11_4.pdf)
+  s/(\x{103A})(\x{1037})/$2$1/g; # BURMESE ASAT
+  s/(\x{103A})(\x{103E})/$2$1/g; # MON ASAT
+  s/(\x{103A})(\x{1082})/$2$1/g; # MON ASAT
+
   return $_;
 } # POST: normalized canonical order
 
