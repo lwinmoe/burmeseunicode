@@ -14,7 +14,7 @@
 - Please make changes accordingly what converter routine you want to use in run.pl. It's ava2uni5 for now.
 - Input files in plain text format have to be put in input/ folder. Then, just run
 
-    perl run.pl
+	perl run.pl
 
 - Output files will be in output/ folder.
 
