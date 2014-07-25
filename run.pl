@@ -6,9 +6,9 @@ use burmeseunicode;
 my $input_folder = "input";
 my $output_folder = "output";
 
-while (<"$input_folder/*.txt">) {
+while (<"$input_folder/*">) {
   my $currF = $_;
-  my ($fileName) = /\/(.*.txt)/;
+  my ($fileName) = /\/(.*)/;
   print qq($fileName\n);
   local $/;
   open IN, "$currF" or die "can't read";
