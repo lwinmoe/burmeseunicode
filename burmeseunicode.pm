@@ -14,6 +14,7 @@ use Exporter;
 # use burmeseunicode;
 # $foo = "text in some font encoding";		# the text we want to convert
 # $foo = Encode::decode_utf8($foo);		# from bytes to UTF8 encoding
+# $foo = zawgyi2uni5($foo);			# from Zawgyi Myanmar to Uni 5.1
 # $foo = soas2uni5($foo);			# from SOAS Myanmar to Uni 5.1
 # $foo = uni4touni5($foo);			# from Burmese Unicode 4.1 to 5.1
 # $foo = myazedi2uni5($foo);			# from Myazedi to Uni 5.1
@@ -47,23 +48,12 @@ my $vowel = qq(\x{102B}|\x{102C}|\x{102D}|\x{102E}|\x{102F}|\x{1030}|\x{1031}|\x
 # OUT: Unicode 5 encoding
 sub zawgyi2uni5 {
   local ($_) = shift;
-  ################ finished conversion
+  ################ start conversion
   s/\x{1033}/\x{102F}/g;	# Myanmar Vowel Sign U
   s/\x{1034}/\x{1030}/g;	# Myanmar Vowel Sign UU
   s/\x{103D}/\x{103E}/g;	# MEDIAL HA
   s/\x{103C}/\x{103D}/g;	# MEDIAL WA
-
-  #s/\x{103B}/\x{103C}/g;	# MEDIAL RA
-  #s/\x{107E}/\x{103C}/g;	# MEDIAL RA
-  #s/\x{107F}/\x{103C}/g;	# MEDIAL RA
-  #s/\x{1080}/\x{103C}/g;	# MEDIAL RA
-  #s/\x{1081}/\x{103C}/g;	# MEDIAL RA
-  #s/\x{1082}/\x{103C}/g;	# MEDIAL RA
-  #s/\x{1083}/\x{103C}/g;	# MEDIAL RA
-  #s/\x{1084}/\x{103C}/g;	# MEDIAL RA
   s/(?:\x{103B}|\x{107E}|\x{107F}|\x{1080}|\x{1081}|\x{1082}|\x{1083}|\x{1084})(.*?$consonantsWithMedialR)/$1\x{103C}/g;  # Medial RA
-  #s/(?:\x{1094}|\x{1095})(.*?$consonantsWithMedialR)/$1\x{103C}\x{103D}/g;  # Medial R + Medial WA
-
   s/\x{103A}/\x{103B}/g;	# MIDIAL YA
   s/\x{1039}/\x{103A}/g;	# ASAT
   s/\x{104E}/\x{104E}\x{1004}\x{103A}\x{1038}/g;	# Myanmar Symbol Aforementioned
@@ -103,7 +93,6 @@ sub zawgyi2uni5 {
   s/\x{1088}/\x{103E}\x{102F}/g;	# MEDIAL HA + VOWEL U
   s/\x{1089}/\x{103E}\x{1030}/g;	# MEDIAL HA + VOWEL UU
   s/\x{108A}/\x{103D}\x{103E}/g;	# MEDIAL HA + MEDIAL WA
-
   s/\x{108E}/\x{102D}\x{1036}/g;	# VOWEL I + ANUSVARA
   s/\x{108F}/\x{1014}/g;	# NA
   s/\x{1090}/\x{101B}/g;	# RA
@@ -113,14 +102,11 @@ sub zawgyi2uni5 {
   s/(?:\x{1094}|\x{1095})/\x{1037}/g;	# DOT BELOW
   s/\x{1096}/\x{1039}\x{1010}\x{103D}/g;  # Subscript (TA+MEDIAL WA)
   s/\x{1097}/\x{100B}\x{1039}\x{100B}/g;  # TTA + subscript TTA
-
-
   ################ finished conversion
 
   ################ normalization
   $_ = normalize($_); 		# normalization
-
-  ################# Handle Kinzi stuff
+################# Handle Kinzi stuff
   s/(.)(\x{108D})/$2$1\x{1036}/g;	# KINZI and ANUSVARA
   s/($vowel)(\x{1064})/$2$1/g;		# reorder KINZI
   s/($medial)(\x{1064})/$2$1/g;		# reorder KINZI
