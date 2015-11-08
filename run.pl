@@ -15,7 +15,7 @@ while (<"$input_folder/*">) {
   my $foo = <IN>;
   close IN;
   $foo = Encode::decode_utf8($foo);     # from bytes to UTF8 encoding
-  $foo = ava2uni5($foo);                # convert to Unicode 5.1
+  $foo = zawgyi2uni5($foo);                # convert to Unicode 5.1
                                         # other possible conversion routines are:
                                         # soas2uni5, uni4touni5, myazedi2uni5, metta2uni5
   $foo = Encode::encode_utf8($foo);     # back to bytes

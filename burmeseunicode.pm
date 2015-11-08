@@ -6,7 +6,7 @@ use Encode;       # for Unicode handling
 our (@ISA, @EXPORT, @EXPORT_OK);
 use Exporter;
 @ISA            = qw(Exporter);
-@EXPORT         = qw(soas2uni5 uni4touni5 myazedi2uni5 metta2uni5 ava2uni5);
+@EXPORT         = qw(zawgyi2uni5 soas2uni5 uni4touni5 myazedi2uni5 metta2uni5 ava2uni5);
 @EXPORT_OK      = qw(:DEFAULT %Table);
 
 ############### Usage example
@@ -41,6 +41,103 @@ my $medial = qq(\x{103B}|\x{103C}|\x{103D}|\x{103E}|\x{105E}|\x{105F}|\x{1060});
 my $shanMedial = qq(\x{1082});
 my $shanTones = qq(\x{1087}|\x{1088}|\x{1089}|\x{108A}|\x{108B}|\x{108C});
 my $vowel = qq(\x{102B}|\x{102C}|\x{102D}|\x{102E}|\x{102F}|\x{1030}|\x{1031}|\x{1032}|\x{1084}|\x{1085});
+
+############### zawgyi2uni5 converts Zawgyi encoding to unicode 5.1 encoding
+# IN: Zawgyi encoding
+# OUT: Unicode 5 encoding
+sub zawgyi2uni5 {
+  local ($_) = shift;
+  ################ finished conversion
+  s/\x{1033}/\x{102F}/g;	# Myanmar Vowel Sign U
+  s/\x{1034}/\x{1030}/g;	# Myanmar Vowel Sign UU
+  s/\x{103D}/\x{103E}/g;	# MEDIAL HA
+  s/\x{103C}/\x{103D}/g;	# MEDIAL WA
+
+  #s/\x{103B}/\x{103C}/g;	# MEDIAL RA
+  #s/\x{107E}/\x{103C}/g;	# MEDIAL RA
+  #s/\x{107F}/\x{103C}/g;	# MEDIAL RA
+  #s/\x{1080}/\x{103C}/g;	# MEDIAL RA
+  #s/\x{1081}/\x{103C}/g;	# MEDIAL RA
+  #s/\x{1082}/\x{103C}/g;	# MEDIAL RA
+  #s/\x{1083}/\x{103C}/g;	# MEDIAL RA
+  #s/\x{1084}/\x{103C}/g;	# MEDIAL RA
+  s/(?:\x{103B}|\x{107E}|\x{107F}|\x{1080}|\x{1081}|\x{1082}|\x{1083}|\x{1084})(.*?$consonantsWithMedialR)/$1\x{103C}/g;  # Medial RA
+  #s/(?:\x{1094}|\x{1095})(.*?$consonantsWithMedialR)/$1\x{103C}\x{103D}/g;  # Medial R + Medial WA
+
+  s/\x{103A}/\x{103B}/g;	# MIDIAL YA
+  s/\x{1039}/\x{103A}/g;	# ASAT
+  s/\x{104E}/\x{104E}\x{1004}\x{103A}\x{1038}/g;	# Myanmar Symbol Aforementioned
+  s/\x{105A}/\x{102B}\x{103A}/g;	# Myanmar Vowell Tall AA + ASAT
+  s/\x{1060}/\x{1039}\x{1000}/g;	# VIRAMA + LETTER KA
+  s/\x{1061}/\x{1039}\x{1001}/g;	# VIRAMA + LETTER KHA
+  s/\x{1062}/\x{1039}\x{1002}/g;	# VIRAMA + LETTER GA
+  s/\x{1063}/\x{1039}\x{1003}/g;	# VIRAMA + LETTER GHA
+  s/\x{1065}/\x{1039}\x{1005}/g;  # subscript CA
+  s/\x{1066}/\x{1039}\x{1006}/g;  # subscript CHA
+  s/\x{1067}/\x{1039}\x{1006}/g;  # subscript CHA
+  s/\x{1068}/\x{1039}\x{1007}/g;  # subscript JA
+  s/\x{1069}/\x{1039}\x{1005}\x{103B}/g;  # subscript CA + MEDIAL YA
+  s/\x{106A}/\x{1009}}/g;         # NYA
+  s/\x{106B}/\x{100A}}/g;         # NNYA
+  s/\x{106C}/\x{1039}\x{100B}/g;  # subscript TTA
+  s/\x{106D}/\x{1039}\x{100C}/g;  # subscript TTHA
+  s/\x{106E}/\x{100D}\x{1039}\x{100D}/g;  # DDA + subscript DDA
+  s/\x{106F}/\x{100E}\x{1039}\x{100D}/g;  # DDHA + subscript DDA
+  s/\x{1070}/\x{1039}\x{100F}/g;  # subscript NNA
+  s/\x{1071}/\x{1039}\x{1010}/g;  # subscript TA
+  s/\x{1072}/\x{1039}\x{1010}/g;  # subscript TA
+  s/\x{1073}/\x{1039}\x{1011}/g;  # subscript THA
+  s/\x{1074}/\x{1039}\x{1011}/g;  # subscript THA
+  s/\x{1075}/\x{1039}\x{1012}/g;  # subscript DA
+  s/\x{1076}/\x{1039}\x{1013}/g;  # subscript DHA
+  s/\x{1077}/\x{1039}\x{1014}/g;  # subscript NA
+  s/\x{1078}/\x{1039}\x{1015}/g;  # subscript PA
+  s/\x{1079}/\x{1039}\x{1016}/g;  # subscript PHA
+  s/\x{107A}/\x{1039}\x{1017}/g;  # subscript BA
+  s/\x{107B}/\x{1039}\x{1018}/g;  # subscript BHA
+  s/\x{107C}/\x{1039}\x{1019}/g;  # subscript MA
+  s/\x{107D}/\x{103B}/g;	# MIDIAL YA
+  s/\x{1085}/\x{1039}\x{101C}/g;  # subscript LA
+  s/\x{1086}/\x{103F}/g;  # GREAT SA
+  s/\x{1087}/\x{103E}/g;	# MEDIAL HA
+  s/\x{1088}/\x{103E}\x{102F}/g;	# MEDIAL HA + VOWEL U
+  s/\x{1089}/\x{103E}\x{1030}/g;	# MEDIAL HA + VOWEL UU
+  s/\x{108A}/\x{103D}\x{103E}/g;	# MEDIAL HA + MEDIAL WA
+
+  s/\x{108E}/\x{102D}\x{1036}/g;	# VOWEL I + ANUSVARA
+  s/\x{108F}/\x{1014}/g;	# NA
+  s/\x{1090}/\x{101B}/g;	# RA
+  s/\x{1091}/\x{100F}\x{1039}\x{100D}/g;	# NNA + Subscript DDA
+  s/\x{1092}/\x{100B}\x{1039}\x{100C}/g;	# TTA + Subscript TTHA
+  s/\x{1093}/\x{1039}\x{1018}/g;  # subscript BHA
+  s/(?:\x{1094}|\x{1095})/\x{1037}/g;	# DOT BELOW
+  s/\x{1096}/\x{1039}\x{1010}\x{103D}/g;  # Subscript (TA+MEDIAL WA)
+  s/\x{1097}/\x{100B}\x{1039}\x{100B}/g;  # TTA + subscript TTA
+
+
+  ################ finished conversion
+
+  ################ normalization
+  $_ = normalize($_); 		# normalization
+
+  ################# Handle Kinzi stuff
+  s/(.)(\x{108D})/$2$1\x{1036}/g;	# KINZI and ANUSVARA
+  s/($vowel)(\x{1064})/$2$1/g;		# reorder KINZI
+  s/($medial)(\x{1064})/$2$1/g;		# reorder KINZI
+  s/($consonants)(\x{1064})/$2$1/g;	# reorder KINZI and consonant
+  s/($medial)(\x{108B})/$2$1\x{102D}/g;	# KINZI and VOWEL I
+  s/($consonants)(\x{108B})/$2$1\x{102D}/g;	# KINZI and VOWEL I
+  s/($medial)(\x{108C})/$2$1\x{102E}/g;	# KINZI and VOWEL II
+  s/($consonants)(\x{108C})/$2$1\x{102E}/g;	# KINZI and VOWEL II
+  s/\x{1064}/\x{1004}\x{103A}\x{1039}/g;# KINZI
+  s/\x{108D}/\x{1004}\x{103A}\x{1039}/g;# KINZI
+  s/\x{108B}/\x{1004}\x{103A}\x{1039}/g;# KINZI
+  s/\x{108C}/\x{1004}\x{103A}\x{1039}/g;# KINZI
+  ################ finished Kinzi conversion
+
+  return $_;
+} # POST: zawgyi2uni5 converts Zawgyi Myanmar encoding to unicode 5.1
+
 
 ############### soas2uni5 converts SOAS Myanmar Shan to unicode 5.1 encoding
 # IN: Shan in SOAS Myanmar encoding
