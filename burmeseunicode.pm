@@ -571,7 +571,7 @@ sub normalize {
 					# reverse VOWEL U and (VOWEL I, VOWEL II, SIGN AI)
   s/(\x{1030})(\x{102D}|\x{102E}|\x{1032})/$2$1/g;	
 				# reverse VOWEL UU and (VOWEL I, VOWEL II, SIGN AI)
-### comment out the following two lines for Karen
+  ### comment out the following two lines for Karen
   s/[^\x{1039}]($consonantsWithTallAA)([\x{103D}\x{103E}]*)($vowel*)\x{102C}/$1$2$3\x{102B}/g;
                                                 # TALL AA preceeded by some consonants
   s/(\x{103B})\x{102B}/$1\x{102C}/g;	# MEDIAL Y + TALL AA => AA
