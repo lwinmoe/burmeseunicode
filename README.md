@@ -22,3 +22,15 @@
     ```
 
 - Output files will be in output/ folder.
+
+# How to run the Python script
+
+Python script `burmeseunicode.py` will convert Zawgyi encoding to Unicode.
+
+## How to run
+
+    ```
+    python3 burmeseunicode.py input/*.txt
+    ```
+
+Output files will be in the same folder with the extensions `.out`
