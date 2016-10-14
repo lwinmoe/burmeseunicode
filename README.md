@@ -8,6 +8,7 @@
     $foo = soas2uni5($foo);               # from SOAS Myanmar to Uni 5.1
     $foo = uni4touni5($foo);              # from Burmese Unicode 4.1 to 5.1
     $foo = myazedi2uni5($foo);            # from Myazedi to Uni 5.1
+    $foo = ava2uni5($foo);                # from AvaLaser to Uni 5.1
     $foo = Encode::encode_utf8($foo);     # back to byte
 
 # How to run the supplied run.pl file 
@@ -23,7 +24,7 @@
 
 - Output files will be in output/ folder.
 
-# How to run the Python script
+# How to run the Python script (Zawgyi only for now)
 
 Python script `burmeseunicode.py` will convert Zawgyi encoding to Unicode.
 
